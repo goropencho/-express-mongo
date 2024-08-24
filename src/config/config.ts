@@ -17,6 +17,9 @@ const envVarsSchema = z.object({
   SMTP_USERNAME: z.string(),
   SMTP_PASSWORD: z.string(),
   EMAIL_FROM: z.string().email(),
+  FE_URL: z.string().url(),
+  OTP_LENGTH: z.coerce.number().default(6),
+  OTP_EXPIRATION_MINUTES: z.coerce.number().default(5),
 });
 
 export const env = envVarsSchema.parse(process.env);

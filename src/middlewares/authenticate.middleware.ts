@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from 'express';
 import {UnauthorizedException} from '../utils/exceptions';
 import {tokenService} from '../services';
 import {AuthRequest} from '../utils/customRequest';
+import TOKEN_TYPES from '../config/tokens';
 
 const auth =
   () =>
@@ -16,7 +17,10 @@ const auth =
         throw new UnauthorizedException('No token provided');
       }
 
-      const decodedToken = await tokenService.verifyToken(token);
+      const decodedToken = await tokenService.verifyToken(
+        token,
+        TOKEN_TYPES.ACCESS
+      );
       req.user = decodedToken.user?.id;
       next();
     } catch (error) {

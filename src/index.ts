@@ -6,9 +6,14 @@ import mongoose from 'mongoose';
 import router from './routes';
 const app = express();
 
-mongoose.connect(env.MONGODB_URL).then(() => {
-  console.log('Connected to Database');
-});
+mongoose
+  .connect(env.MONGODB_URL)
+  .then(() => {
+    console.log('Connected to Database');
+  })
+  .catch(err => {
+    console.error('DB Connection Error');
+  });
 
 app.use(cors());
 app.use(express.json());
