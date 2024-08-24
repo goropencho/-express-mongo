@@ -3,15 +3,9 @@ import moment = require('moment');
 import {env} from '../config/config';
 import TOKEN_TYPES from '../config/tokens';
 import {Token} from '../models/token.model';
-import {unknown} from 'zod';
 import {NotFoundException, UnauthorizedException} from '../utils/exceptions';
 import {userService} from '.';
-
-interface TokenPayload extends jwt.JwtPayload {
-  user: {
-    id: string;
-  };
-}
+import {TokenPayload} from '../constants/jwtPayload';
 
 export const generateAuthTokens = async (user: any) => {
   const accessTokenExpires = moment().add(
@@ -89,16 +83,13 @@ function generateToken(
 export const verifyToken = async (
   token: string,
   type: string
-): Promise<TokenPayload> => {
+): Promise<any> => {
   try {
     const payload = jwt.verify(token, env.JWT_SECRET) as TokenPayload;
-    if (type === TOKEN_TYPES.ACCESS) {
-      return payload;
-    }
     const tokenDoc = await Token.findOne({
       token,
       type,
-      user: payload.sub,
+      user: payload.user.id,
       blacklisted: false,
     });
 
@@ -106,7 +97,7 @@ export const verifyToken = async (
       throw new UnauthorizedException('Token not found');
     }
 
-    return payload;
+    return tokenDoc;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       throw new UnauthorizedException('Token expired');

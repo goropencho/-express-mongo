@@ -43,3 +43,16 @@ export async function sendOTP(email: string) {
   }
   await otpService.generateOTP(email);
 }
+
+export const refreshAuth = async (refreshToken: string) => {
+  const refreshTokenDoc = await tokenService.verifyToken(
+    refreshToken,
+    TOKEN_TYPES.REFRESH
+  );
+  const user = await userService.getUserById(refreshTokenDoc.user);
+  if (!user) {
+    throw new NotFoundException('User Not Found');
+  }
+  await refreshTokenDoc.deleteOne();
+  return tokenService.generateAuthTokens(user);
+};

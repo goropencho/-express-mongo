@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import authRouter from './auth.routes';
 import productRoutes from './product.routes';
+import docsRoute from './docs.routes';
 import {env} from 'process';
 const router = Router();
 
@@ -16,21 +17,21 @@ const defaultRoutes = [
 ];
 
 // Swagger
-// const devRoutes = [
-//   {
-//     path: '/docs',
-//     route: docsRoute,
-//   },
-// ];
+const devRoutes = [
+  {
+    path: '/docs',
+    route: docsRoute,
+  },
+];
 
 defaultRoutes.forEach(route => {
   router.use(route.path, route.route);
 });
 
-// if (env.NODE_ENV !== 'production') {
-//   devRoutes.forEach(route => {
-//     router.use(route.path, route.route);
-//   });
-// }
+if (env.NODE_ENV !== 'production') {
+  devRoutes.forEach(route => {
+    router.use(route.path, route.route);
+  });
+}
 
 export default router;

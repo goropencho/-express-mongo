@@ -14,7 +14,7 @@ export const GetAllProduct = catchAsync(
   async (req: AuthRequest, res: Response) => {
     const {user} = req;
     const product = await productService.getProducts(user);
-    res.status(201).send(product);
+    res.status(201).send({response: product});
   }
 );
 export const GetProduct = catchAsync(
@@ -22,7 +22,7 @@ export const GetProduct = catchAsync(
     const {user} = req;
     const {id} = req.params;
     const product = await productService.getProduct(user, id as string);
-    res.status(201).send(product);
+    res.status(201).send({response: product});
   }
 );
 export const UpdateProduct = catchAsync(
@@ -34,7 +34,7 @@ export const UpdateProduct = catchAsync(
       productId,
       req.body
     );
-    res.status(201).send(product);
+    res.status(201).send({response: product});
   }
 );
 export const DeleteProduct = catchAsync(
@@ -42,6 +42,6 @@ export const DeleteProduct = catchAsync(
     const {user} = req;
     const {id: productId} = req.params;
     const product = await productService.deleteProduct(user, productId);
-    res.status(200).send(product);
+    res.status(200).send({response: product});
   }
 );

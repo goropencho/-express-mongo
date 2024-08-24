@@ -21,6 +21,12 @@ export const LogOutSchema = z.object({
 
 export type LogOutInterface = z.infer<typeof LogOutSchema>;
 
+export const RefreshTokenSchema = z.object({
+  refreshToken: z.string(),
+});
+
+export type RefreshTokenInterface = z.infer<typeof RefreshTokenSchema>;
+
 export const ForgotPasswordSchema = z.object({
   email: z.string().email({message: 'Invalid Email'}),
 });

@@ -3,6 +3,7 @@ import {authController} from '../controller';
 import {
   ForgotPasswordSchema,
   LogOutSchema,
+  RefreshTokenSchema,
   ResetPasswordSchema,
   SendOTPEmailSchema,
   SignInSchema,
@@ -19,6 +20,11 @@ routes.post(
   "/forgot-password'",
   validateBody(ForgotPasswordSchema),
   authController.forgotPassword
+);
+routes.post(
+  "/refresh-token",
+  validateBody(RefreshTokenSchema),
+  authController.refreshTokens
 );
 routes.post(
   "/reset-password'",

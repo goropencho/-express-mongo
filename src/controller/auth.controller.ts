@@ -45,6 +45,13 @@ export const forgotPassword = catchAsync(
   }
 );
 
+export const refreshTokens = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const tokens = await authService.refreshAuth(req.body.refreshToken);
+    res.send({...tokens});
+  }
+);
+
 export const resetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const {token, password} = req.body;
