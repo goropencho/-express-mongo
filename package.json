@@ -39,7 +39,7 @@
   "scripts": {
     "lint": "gts lint",
     "clean": "gts clean",
-    "start": "tsc && node build/index.js",
+    "start": "tsc && node build/src/index.js",
     "fix": "gts fix",
     "dev": "nodemon",
     "prepare": "yarn run compile",
