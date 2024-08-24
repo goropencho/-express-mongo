@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import authRouter from './auth.routes';
+import productRoutes from './product.routes';
 import {env} from 'process';
 const router = Router();
 
@@ -8,14 +9,10 @@ const defaultRoutes = [
     path: '/auth',
     route: authRouter,
   },
-  // {
-  //   path: "/user",
-  //   route: userRouter,
-  // },
-  // {
-  //   path: "/product",
-  //   route: productRouter,
-  // },
+  {
+    path: '/product',
+    route: productRoutes,
+  },
 ];
 
 // Swagger
