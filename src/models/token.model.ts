@@ -1,13 +1,15 @@
 import mongoose, {Document, Model, mongo} from 'mongoose';
 import TOKEN_TYPES from '../config/tokens';
 
-interface IToken extends Document {
+interface ITokenDocument extends Document {
   token: string;
   user: string;
   type: string;
   expires: Date;
   blacklisted: boolean;
 }
+interface ITokenModel extends Model<ITokenDocument> {}
+interface IToken extends ITokenDocument {}
 
 const tokenSchema = new mongoose.Schema(
   {
@@ -28,26 +30,32 @@ const tokenSchema = new mongoose.Schema(
         TOKEN_TYPES.RESET_PASSWORD,
         TOKEN_TYPES.VERIFY_EMAIL,
       ],
-      expires: {
-        type: Date,
-        required: true,
-      },
-      blacklisted: {
-        type: Boolean,
-        default: false,
-      },
+      required: true,
+    },
+    expires: {
+      type: Date,
+      required: true,
+    },
+    blacklisted: {
+      type: Boolean,
+      default: false,
     },
   },
   {
     timestamps: true,
     toJSON: {
       transform: (doc, ret) => {
-        (ret.id = ret._id), delete ret._id;
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret._v;
       },
     },
   }
 );
 
-const Token = mongoose.model('Token', tokenSchema);
+const Token: ITokenModel = mongoose.model<IToken, ITokenModel>(
+  'Token',
+  tokenSchema
+);
 
 export {Token};
