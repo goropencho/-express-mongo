@@ -3,7 +3,7 @@ import {z} from 'zod';
 
 import {BadRequestException, InternalServerError} from '../utils/exceptions';
 
-export const validate =
+export const validateBody =
   (schema: z.Schema<any>) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {

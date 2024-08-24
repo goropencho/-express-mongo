@@ -10,3 +10,9 @@ export type SignUpInterface = z.infer<typeof SignUpSchema>;
 export const SignInSchema = SignUpSchema.extend({});
 
 export type SignInInterface = z.infer<typeof SignInSchema>;
+
+export const LogOutSchema = z.object({
+  refreshToken: z.string(),
+});
+
+export type LogOutInterface = z.infer<typeof LogOutSchema>;

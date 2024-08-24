@@ -18,3 +18,11 @@ export const signIn = catchAsync(
     res.send({...user, tokens});
   }
 );
+
+export const signOut = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const {refreshToken} = req.body;
+    await authService.logout(refreshToken);
+    res.status(205).send();
+  }
+);
