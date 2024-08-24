@@ -1,5 +1,6 @@
 import type {Request, Response} from 'express';
-import catchAsync from '../utils/CatchAsync';
+import {tokenService, userService} from '../services';
+import catchAsync from '../utils/catchAsync';
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   const user = await userService.createUser(req.body);
