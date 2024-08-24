@@ -1,21 +1,21 @@
-import mongoose, {Document, Model} from 'mongoose';
+import mongoose, {Document, Model, model} from 'mongoose';
 import bcrypt = require('bcrypt');
 import {SignUpInterface} from '../schema/auth.schema';
 
-interface IUser {
+interface IUserDocument extends Document {
   email: string;
   password: string;
 }
 
-interface IUserModel extends Model<IUser> {
+interface IUserModel extends Model<IUserDocument> {
   isEmailTaken(email: string, excludeUserId?: string): Promise<boolean>;
 }
 
-interface IUserDocument extends IUser, Document {
+interface IUser extends IUserDocument {
   isPasswordMatch(password: string): Promise<boolean>;
 }
 
-const userSchema = new mongoose.Schema<IUserDocument, IUserModel>(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -34,11 +34,6 @@ const userSchema = new mongoose.Schema<IUserDocument, IUserModel>(
   },
   {
     timestamps: true,
-    toJSON: {
-      transform: (doc, ret) => {
-        (ret.id = ret._id), delete ret._id;
-      },
-    },
   }
 );
 
@@ -51,7 +46,8 @@ userSchema.methods.isPasswordMatch = async function (
   this: IUserDocument,
   password: string
 ) {
-  return bcrypt.compare(password, this.password);
+  const match = await bcrypt.compare(password, this.password);
+  return match;
 };
 
 userSchema.pre('save', async function (next) {
@@ -62,6 +58,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-const User = new mongoose.Model('User', userSchema);
+const User: IUserModel = model<IUser, IUserModel>('User', userSchema);
 
 export {User};

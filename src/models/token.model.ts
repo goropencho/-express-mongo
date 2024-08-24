@@ -1,7 +1,7 @@
-import mongoose, {mongo} from 'mongoose';
+import mongoose, {Document, Model, mongo} from 'mongoose';
 import TOKEN_TYPES from '../config/tokens';
 
-interface ITokenModel {
+interface IToken extends Document {
   token: string;
   user: string;
   type: string;
@@ -48,6 +48,6 @@ const tokenSchema = new mongoose.Schema(
   }
 );
 
-const Token = new mongoose.Model('Token', tokenSchema);
+const Token = mongoose.model('Token', tokenSchema);
 
 export {Token};

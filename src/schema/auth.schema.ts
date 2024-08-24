@@ -6,3 +6,7 @@ export const SignUpSchema = z.object({
 });
 
 export type SignUpInterface = z.infer<typeof SignUpSchema>;
+
+export const SignInSchema = SignUpSchema.extend({});
+
+export type SignInInterface = z.infer<typeof SignInSchema>;
