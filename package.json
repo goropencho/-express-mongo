@@ -49,8 +49,13 @@
     "start": "tsc && node build/src/index.js",
     "fix": "gts fix",
     "dev": "nodemon",
-    "prepare": "yarn run compile",
+    "prepare": "husky",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "gts check"
+    }
   }
 }
