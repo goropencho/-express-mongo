@@ -12,8 +12,8 @@ export const validateBody =
       next();
     } catch (err) {
       if (err instanceof z.ZodError) {
-        var errors = err.issues[0];
-        var error = `${errors.path[0]}: ${errors.message}`;
+        const errors = err.issues[0];
+        const error = `${errors.path[0]}: ${errors.message}`;
         throw new BadRequestException(error);
       } else {
         throw new InternalServerError();

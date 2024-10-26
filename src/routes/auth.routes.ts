@@ -22,7 +22,7 @@ routes.post(
   authController.forgotPassword
 );
 routes.post(
-  "/refresh-token",
+  '/refresh-token',
   validateBody(RefreshTokenSchema),
   authController.refreshTokens
 );
