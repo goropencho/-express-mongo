@@ -4,7 +4,7 @@ import {z} from 'zod';
 import {BadRequestException, InternalServerError} from '../utils/exceptions';
 
 export const validateBody =
-  (schema: z.Schema<any>) =>
+  <T>(schema: z.Schema<T>) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
       const parsed = schema.parse(req.body);

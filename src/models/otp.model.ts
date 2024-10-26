@@ -8,8 +8,8 @@ interface IOTPDocument extends Document {
   expires: Date;
 }
 
-interface IOTPModel extends Model<IOTPDocument> {}
-interface IOTP extends IOTPDocument {}
+type IOTPModel = Model<IOTPDocument>;
+type IOTP = IOTPDocument;
 
 const otpSchema = new mongoose.Schema({
   email: {

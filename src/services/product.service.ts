@@ -1,3 +1,4 @@
+import {Document} from 'mongoose';
 import {Product} from '../models/product.model';
 import {
   CreateProductInterface,
@@ -8,7 +9,7 @@ import {NotFoundException} from '../utils/exceptions';
 export const createProduct = async (
   userId: string,
   productBody: CreateProductInterface
-): Promise<any> => {
+): Promise<Document> => {
   const {title} = productBody;
   const product = await Product.create({
     title,
@@ -20,7 +21,7 @@ export const createProduct = async (
 export const deleteProduct = async (
   userId: string,
   productId: string
-): Promise<any> => {
+): Promise<Document> => {
   const product = await Product.findOne({
     id: productId,
     user: userId,
@@ -36,7 +37,7 @@ export const updateProduct = async (
   userId: string,
   productId: string,
   updateProduct: UpdateProductInterface
-): Promise<any> => {
+): Promise<Document> => {
   const product = await Product.findOne({
     id: productId,
     user: userId,
@@ -52,7 +53,7 @@ export const updateProduct = async (
 export const getProduct = async (
   userId: string,
   productId: string
-): Promise<any> => {
+): Promise<Document> => {
   const product = await Product.findOne({
     id: productId,
     user: userId,
@@ -63,7 +64,7 @@ export const getProduct = async (
   return product;
 };
 
-export const getProducts = async (userId: string): Promise<any> => {
+export const getProducts = async (userId: string): Promise<Document[]> => {
   const product = await Product.find({
     user: userId,
   });

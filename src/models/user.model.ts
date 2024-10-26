@@ -1,6 +1,5 @@
 import mongoose, {Document, Model, model} from 'mongoose';
 import bcrypt = require('bcrypt');
-import {SignUpInterface} from '../schema/auth.schema';
 
 interface IUserDocument extends Document {
   email: string;
@@ -58,9 +57,8 @@ userSchema.methods.isPasswordMatch = async function (
 };
 
 userSchema.pre('save', async function (next) {
-  const user = this;
-  if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 10);
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });

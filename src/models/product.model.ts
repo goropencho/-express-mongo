@@ -5,8 +5,8 @@ interface IProductDocument extends Document {
   user: string;
 }
 
-interface IProductModel extends Model<IProductDocument> {}
-interface IProduct extends IProductDocument {}
+type IProductModel = Model<IProductDocument>;
+type IProduct = IProductDocument;
 
 const productSchema = new mongoose.Schema(
   {

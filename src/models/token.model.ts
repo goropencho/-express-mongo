@@ -1,4 +1,4 @@
-import mongoose, {Document, Model, mongo} from 'mongoose';
+import mongoose, {Document, Model} from 'mongoose';
 import TOKEN_TYPES from '../config/tokens';
 
 interface ITokenDocument extends Document {
@@ -8,8 +8,8 @@ interface ITokenDocument extends Document {
   expires: Date;
   blacklisted: boolean;
 }
-interface ITokenModel extends Model<ITokenDocument> {}
-interface IToken extends ITokenDocument {}
+type ITokenModel = Model<ITokenDocument>;
+type IToken = ITokenDocument;
 
 const tokenSchema = new mongoose.Schema(
   {

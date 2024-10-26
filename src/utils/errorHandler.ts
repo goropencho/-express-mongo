@@ -1,15 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
-import {BadRequestException, InternalServerError} from './exceptions';
+import {Request, Response} from 'express';
 import {HttpException} from './exceptions/http.exception';
 import logError from './logError';
 import {env} from '../config/config';
 
-export const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler = (err: Error, req: Request, res: Response) => {
   if (err instanceof HttpException) {
     res.status(err.statusCode).json({
       message: err.message,

@@ -14,7 +14,10 @@ const transport = createTransport({
 try {
   transport.verify();
   console.log('Connected Successfully to the SMTP Server');
-} catch (err: unknown) {
+} catch (error) {
+  if (error instanceof Error) {
+    console.error('Error occurred in SMTP Server connection:', error.message);
+  }
   throw new InternalServerError('SMTP server connection failed');
 }
 

@@ -1,5 +1,5 @@
 import catchAsync from '../utils/catchAsync';
-import {Request, Response} from 'express';
+import {Response} from 'express';
 import {AuthRequest} from '../utils/customRequest';
 import {productService} from '../services';
 

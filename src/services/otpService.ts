@@ -18,6 +18,6 @@ export const generateOTP = async (email: string, length = env.OTP_LENGTH) => {
     result = await OTP.findOne({otp: otp});
   }
   const otpPayload = {otp, email};
-  const otpBody = await OTP.create(otpPayload);
+  await OTP.create(otpPayload);
   return otpPayload;
 };

@@ -1,7 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
 import {UnauthorizedException} from '../utils/exceptions';
-import {tokenService} from '../services';
-import TOKEN_TYPES from '../config/tokens';
 import {env} from '../config/config';
 import jwt = require('jsonwebtoken');
 import {TokenPayload} from '../constants/jwtPayload';
