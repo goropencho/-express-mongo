@@ -55,7 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "gts check"
+      "pre-commit": "gts lint"
     }
   }
 }
