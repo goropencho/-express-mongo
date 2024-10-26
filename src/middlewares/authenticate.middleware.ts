@@ -3,6 +3,7 @@ import {UnauthorizedException} from '../utils/exceptions';
 import {env} from '../config/config';
 import jwt = require('jsonwebtoken');
 import {TokenPayload} from '../constants/jwtPayload';
+import {AuthRequest} from '../utils/customRequest';
 
 const auth = async (
   req: Request,
@@ -16,7 +17,7 @@ const auth = async (
     }
 
     const decodedToken = jwt.verify(token, env.JWT_SECRET) as TokenPayload;
-    req.user = decodedToken.user?.id;
+    (req as AuthRequest).user = decodedToken.user?.id;
     next();
   } catch (error) {
     next(error);
